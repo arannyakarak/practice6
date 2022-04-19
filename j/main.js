@@ -1,4 +1,3 @@
-
 //This code does NOT create any global variables.
 //Promises can be chained together, with the previous promise
 // passing its results to the next one in the chain.
@@ -7,13 +6,13 @@
 //that's why the periods start the then lines.
 
 // fetch a random color 
-window.onload = function() {
+window.onload = function () {
     fetch("https://x-colors.herokuapp.com/api/random")
-    .then((response) => response.json())
-    .then((data) => {
-        document.body.style.backgroundColor = data.rgb;
-    })
-    .catch((err) => console.log("Oops!", err));
+        .then((response) => response.json())
+        .then((data) => {
+            document.body.style.backgroundColor = data.rgb;
+        })
+        .catch((err) => console.log("Oops!", err));
 };
 
 /*fetch("houses.json")
@@ -55,12 +54,12 @@ async function fetchData(url) {
         let response = await fetch(url);
         let data = await response.json();
         return data;
-    } catch(err) {
-         //this only runs if an error occurs in above process
+    } catch (err) {
+        //this only runs if an error occurs in above process
         console.log('Oops!', err);
     }
 }
- 
+
 async function renderData(url, div) {
     try {
         let data = await fetchData(url);
@@ -72,7 +71,7 @@ async function renderData(url, div) {
         data.forEach(house => {
 
             // convert the members array into a string
-            // let family = item.members.join(' | ');
+
             let family = house.members.join(" | ");
             // generate the html snippet for one array item
             //to be added to the "html" temp holder.
@@ -92,12 +91,11 @@ async function renderData(url, div) {
         const container = document.querySelector(div);
         container.innerHTML = html;
 
-    } catch(err) {
+    } catch (err) {
         //this only runs if an error occurs in above process
         console.log('Oops!', err);
     }
-    
+
 }
 
 renderData('houses.json', '#container');
-
