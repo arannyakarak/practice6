@@ -6,6 +6,7 @@
 //it's easier to read if we put each step in its own line,
 //that's why the periods start the then lines.
 
+// fetch a random color 
 window.onload = function() {
     fetch("https://x-colors.herokuapp.com/api/random")
     .then((response) => response.json())
@@ -15,7 +16,7 @@ window.onload = function() {
     .catch((err) => console.log("Oops!", err));
 };
 
-fetch("houses.json")
+/*fetch("houses.json")
     .then((response) => response.json())
     .then((data) => {
         //create a temp holder to append all the html generated inside the forEach iterator
@@ -48,3 +49,55 @@ fetch("houses.json")
     })
     .catch((err) => console.log("Oops!", err));
     //this only runs if there is an error during the above process
+*/
+async function fetchData(url) {
+    try {
+        let response = await fetch(url);
+        let data = await response.json();
+        return data;
+    } catch(err) {
+         //this only runs if an error occurs in above process
+        console.log('Oops!', err);
+    }
+}
+ 
+async function renderData(url, div) {
+    try {
+        let data = await fetchData(url);
+        //create a temp holder to append all the html generated inside the forEach iterator
+        let html = '';
+        html += `<dl class="showcase">`;
+        //the argument "house" passed to the arrow function
+        //holds each item in the array in turn. 
+        data.forEach(house => {
+
+            // convert the members array into a string
+            // let family = item.members.join(' | ');
+            let family = house.members.join(" | ");
+            // generate the html snippet for one array item
+            //to be added to the "html" temp holder.
+            let dt = `<dt class="name">${house.name}</dt>`;
+            html += dt;
+
+            let dd = `<dd class="desc">${family}</dd>`;
+            html += dd;
+            // let objInfo = 
+            // `<p class="house">${item.name}</p>
+            // <p class="folks">${family}</p>`;
+            // html += objInfo;
+        });
+        html += `</dl>`;
+        //make a reference to the html container where
+        //the info will be displayed.
+        const container = document.querySelector(div);
+        container.innerHTML = html;
+
+    } catch(err) {
+        //this only runs if an error occurs in above process
+        console.log('Oops!', err);
+    }
+    
+}
+
+renderData('houses.json', '#container');
+
