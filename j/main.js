@@ -69,9 +69,7 @@ async function renderData(url, div) {
         //the argument "house" passed to the arrow function
         //holds each item in the array in turn. 
         data.forEach(house => {
-
             // convert the members array into a string
-
             let family = house.members.join(" | ");
             // generate the html snippet for one array item
             //to be added to the "html" temp holder.
